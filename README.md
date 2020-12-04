@@ -1,12 +1,12 @@
 # headless pi install
  
- ## Install latest OS to Micro SD Card
+ ### Install latest OS to Micro SD Card
  RasPi Imager
  
- ## Enable SSH
+ ### Enable SSH
  `~$ touch /boot/ssh`
  
- ## Setup WiFi
+ ### Setup WiFi
 `~$ touch /boot/wpa_supplicant.conf`
 ```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -19,7 +19,7 @@ network={
 }
 ```
  
-## Boot and SSH into pi
+### Boot and SSH into pi
 `~$ passw`  
 `~# apt update && apt full-upgrade`  
 `~# raspi-config`  
