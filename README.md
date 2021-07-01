@@ -1,14 +1,16 @@
 # headless pi install
  
- ### Install latest OS to Micro SD Card
- RasPi Imager
+ ## Flash latest OS to Micro SD Card
+  * Use `RasPi Imager` tool to flash SD Card
  
- ### Enable SSH
- `~$ touch /boot/ssh`
- 
- ### Setup WiFi
-`~$ touch /boot/wpa_supplicant.conf`
-```
+ ## Enable SSH and WiFi
+  * In the boot partition SD Card
+  
+  `~$ touch /boot/ssh`
+  
+  `~$ touch /boot/wpa_supplicant.conf`
+  * Add to `wpa_supplicant.conf`
+  ```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 country=DE
@@ -18,15 +20,58 @@ network={
  psk="XXXXXX"
 }
 ```
+  * Replace `XXXXXX` with Name and Password of your network
+
+ ## First Boot
+  * Boot Pi and wait for installation to finish
+ 
+# First Login
+ * SSH into pi
+
+ ## Add new user
+  `~$ adduser luk`
+  
+  `~$ groups | sed 's/pi //g' | sed -e "s/ /,/g" | xargs -I{} sudo usermod -a -G {} luk`
+  
+  `~# exit`
+  * Login to new user account
+  * Delete default user
+  
+  `~$ deluser --remove-home pi`
+  
+ ## Create snapshot of os
+  * Mount SD Card to Laptop
+  
+  ### Determin device name
+  `~# lsblk -p`
+  
+  ### Dump System to backup folder
+  `sudo dd bs=4M if=[SD CARD DEVICE NAME] of=~/Documents/pi.backup/snapshots/liteluk0 conv=fsync`
+  * Claim ownership
+  
+  `sudo chown $USER ~/Documents/pi.backup/liteluk0`
+  
+  #### Install PiShrink if not already
+   `wget https://raw.githubusercontent.com/Drewsif/PiShrink/master/pishrink.sh`
+  
+  `sudo chmod +x pishrink.sh`
+  
+  `sudo mv pishrink.sh /usr/local/sbin/pishrink`
+  
+  ### Shrink and compress image file
+  `sudo pishrink ~/Documents/pi.backup/snapshots/liteluk0`
+  
+  `tar -czf ~/Documents/pi.backup/snapshots/liteluk0.tar.gz ~/Documents/pi.backup/snapshots/liteluk0`
  
 ### Boot and SSH into pi
-`~$ passw`  
-`~# apt update && apt full-upgrade`  
+
+# Configure system 
+`~# apt update && apt dist-upgrade`  
 `~# raspi-config`  
   > enable vnc  
   > Memory split 256 MB
-
-### Apps
-> sshfs  
-> vim
-> 
+  > Disable xcompmgr
+ 
+ ## Install apps
+ * shhfs
+ * vim
