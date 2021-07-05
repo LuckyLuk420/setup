@@ -14,7 +14,7 @@ sudo apt-get install xserver-xorg-core xserver-xorg-video-fbdev xserver-xorg-inp
 # Install xfce
 
 sudo apt-get install xfce4 xfce4-terminal xfce4-appfinder xfconf xfdesktop xfce4-dev-tools exo garcon xfce4-panel \
-xfce4-power-manager xfce4-session xfce4-settings tumbler libxfce4util libxfce4ui xfwm4 --no-install-recommends -yy
+xfce4-power-manager xfce4-session xfce4-settings tumbler libxfce4util libxfce4ui xfwm4 -yy
 
 # Install lightdm
 
